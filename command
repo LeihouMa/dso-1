@@ -1,0 +1,1 @@
+./dso_dataset files=/home/lee/project/sequence_01/images.zip calib=/home/lee/project/sequence_01/camera.txt gamma=/home/lee/project/sequence_01/pcalib.txt vignette=/home/lee/project/sequence_01/vignette.png preset=0mode=0

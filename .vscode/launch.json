@@ -1,0 +1,50 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/bin/dso_dataset",
+            //args for tum dataset
+    //         "args": ["files=/home/lee/project/dataset/calib_narrowGamma_scene1/images.zip",
+    //         "calib=/home/lee/project/dataset/calib_narrowGamma_scene1/camera.txt",
+    //         "gamma=/home/lee/project/dataset/calib_narrowGamma_scene1/pcalib.txt",
+    //     "vignette=/home/lee/project/dataset/calib_narrowGamma_scene1/vignette.png",
+    // "preset=0","mode=0"],
+
+    //args for my dataset
+//     "args": ["files=/home/lee/project/sugarcane_sequence/images01",
+//     "calib=//home/lee/project/sugarcane_sequence/camera_2.txt",
+// //     "gamma=/home/lee/project/sugarcane_sequence/pcalib.txt",
+// // "vignette=/home/lee/project/sugarcane_sequence/vignette.png",
+// "preset=0","mode=2"],
+    //args for my dataset
+        "args": ["files=/home/lee/project/sugarcane_sequence/image05",
+    "calib=/home/lee/project/sugarcane_sequence/camera_720p.txt",           
+"preset=0","mode=2"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+
+
+    ]
+}

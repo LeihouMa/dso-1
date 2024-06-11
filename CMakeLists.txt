@@ -107,10 +107,21 @@ else()
 	set(LIBZIP_LIBRARY "")
 endif()
 
+if(PCL_FOUND)
+	message("--- found PCL, compiling dso_pcl library.")
+	include_directories(${PCL_INCLUDE_DIRS})
+	link_directories(${PCL_LIBRARY_DIRS})
+	add_definitions(${PCL_DEFINITIONS})
+	set(dso_pcl_SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/pclProcessor/pclProcessor.cpp)
+	set((HAS_PCL 1))
+else()
+	message("could not find pcl")
+	set(HAS_PCL 0)
+endif()
 
 # compile main library.
 include_directories( ${CSPARSE_INCLUDE_DIR} ${CHOLMOD_INCLUDE_DIR}) 
-add_library(dso ${dso_SOURCE_FILES} ${dso_opencv_SOURCE_FILES} ${dso_pangolin_SOURCE_FILES})
+add_library(dso ${dso_SOURCE_FILES} ${dso_opencv_SOURCE_FILES} ${dso_pangolin_SOURCE_FILES} ${dso_pcl_SOURCE_FILES})
 
 #set_property( TARGET dso APPEND_STRING PROPERTY COMPILE_FLAGS -Wall )
 
@@ -120,6 +131,8 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # OSX
 else()
     set(BOOST_THREAD_LIBRARY boost_thread)
 endif()
+
+
 
 # build main executable (only if we have both OpenCV and Pangolin)
 if (OpenCV_FOUND AND Pangolin_FOUND)
