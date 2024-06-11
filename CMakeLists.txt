@@ -17,9 +17,11 @@ find_package(SuiteParse REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(Boost COMPONENTS system thread) 
 
+# set(CMAKE_PREFIX_PATH "/usr/local/lib/cmake/Pangolin" ${CMAKE_PREFIX_PATH})
+list(APPEND CMAKE_MODULE_PATH "/usr/local/lib/cmake/Pangolin")
 # optional libraries
 find_package(LIBZIP QUIET)
-find_package(Pangolin 0.2 QUIET)
+find_package(Pangolin QUIET)
 find_package(OpenCV QUIET)
 
 # flags
