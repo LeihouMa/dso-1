@@ -42,6 +42,9 @@
 
 #include <math.h>
 
+#include "pclProcesser/pclProcessor.h"
+
+
 namespace dso
 {
 namespace IOWrap

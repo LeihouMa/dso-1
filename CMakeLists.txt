@@ -4,6 +4,7 @@ PROJECT(${PROJECT_NAME})
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
+set(CMAKE_CXX_STANDARD 17)
 
 set(BUILD_TYPE Release)
 #set(BUILD_TYPE RelWithDebInfo)
@@ -23,6 +24,25 @@ list(APPEND CMAKE_MODULE_PATH "/usr/local/lib/cmake/Pangolin")
 find_package(LibZip QUIET)
 find_package(Pangolin QUIET)
 find_package(OpenCV QUIET)
+find_package(PCL 1.8 REQUIRED)
+
+find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
+
+set(VTK_DIR "/usr/local/lib/cmake/vtk-9.3") #这一句对VTK成功编译起作用了
+find_package(VTK REQUIRED)
+include_directories(${VTK_INCLUDE_DIRS})
+link_directories(${VTK_INCLUDE_DIRS})
+# find_package(VTK REQUIRED)
+# include(${VTK_USE_FILE})
+include_directories(/usr/local/include/vtk-9.3)
+
+
+if(VTK_FOUND)
+message("vtk found ")
+message("VTK Include Dirs: ${VTK_INCLUDE_DIRS}")
+message("VTK Include Dirs: ${VTK_USE_FILE}")
+endif()
+
 
 # flags
 add_definitions("-DENABLE_SSE")
@@ -114,7 +134,7 @@ if(PCL_FOUND)
 	include_directories(${PCL_INCLUDE_DIRS})
 	link_directories(${PCL_LIBRARY_DIRS})
 	add_definitions(${PCL_DEFINITIONS})
-	set(dso_pcl_SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/pclProcessor/pclProcessor.cpp)
+	set(dso_pcl_SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/pclProcesser/pclProcessor.cpp)
 	set((HAS_PCL 1))
 else()
 	message("could not find pcl")
@@ -126,7 +146,7 @@ include_directories( ${CSPARSE_INCLUDE_DIR} ${CHOLMOD_INCLUDE_DIR})
 add_library(dso ${dso_SOURCE_FILES} ${dso_opencv_SOURCE_FILES} ${dso_pangolin_SOURCE_FILES} ${dso_pcl_SOURCE_FILES})
 
 #set_property( TARGET dso APPEND_STRING PROPERTY COMPILE_FLAGS -Wall )
-
+target_link_libraries(dso ${OpenCV_LIBS} ${PCL_LIBRARIES} ${VTK_LIBRARIES})
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin") # OSX
     set(BOOST_THREAD_LIBRARY boost_thread-mt)
