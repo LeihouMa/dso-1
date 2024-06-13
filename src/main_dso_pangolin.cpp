@@ -56,10 +56,10 @@ std::string gammaCalib = "";
 std::string source = "";
 std::string calib = "";
 double rescale = 1;
-bool reverse = false;
+bool reverse_flag = false;
 bool disableROS = false;
 int start=0;
-int end=100000;
+int end_pos=100000;
 bool prefetch = false;
 float playbackSpeed=0;	// 0 for linearize (play as fast as possible, while sequentializing tracking & mapping). otherwise, factor on timestamps.
 bool preload=false;
@@ -219,7 +219,7 @@ void parseArgument(char* arg)
 	{
 		if(option==1)
 		{
-			reverse = true;
+			reverse_flag = true;
 			printf("REVERSE!\n");
 		}
 		return;
@@ -259,7 +259,7 @@ void parseArgument(char* arg)
 	}
 	if(1==sscanf(arg,"end=%d",&option))
 	{
-		end = option;
+		end_pos = option;
 		printf("END AT %d!\n",start);
 		return;
 	}
@@ -376,12 +376,12 @@ int main( int argc, char** argv )
 
 
 	int lstart=start;
-	int lend = end;
+	int lend = end_pos;
 	int linc = 1;
-	if(reverse)
+	if(reverse_flag)
 	{
 		printf("REVERSE!!!!");
-		lstart=end-1;
+		lstart=end_pos-1;
 		if(lstart >= reader->getNumImages())
 			lstart = reader->getNumImages()-1;
 		lend = start;
