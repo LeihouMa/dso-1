@@ -8,6 +8,9 @@ PROJECT(${PROJECT_NAME})
 
 set(BUILD_TYPE Release)
 #set(BUILD_TYPE RelWithDebInfo)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIE")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pie")
+
 
 set(EXECUTABLE_OUTPUT_PATH bin)
 set(LIBRARY_OUTPUT_PATH lib)
@@ -88,6 +91,9 @@ include_directories(
   ${EIGEN3_INCLUDE_DIR}
 ) 
 
+#Pangolin只有0.6版本的能找到，而且出现报错信息：
+#PCL与Pangolin冲突Cuda：struct cudaPointerAttributes’ has no member named ‘memoryType’
+#解决方法是：把memcpy.h文件中HAVE_CUDA全部该成：HAVE_CUDA_PANGOLIN
 
 # decide if we have pangolin
 if (Pangolin_FOUND)
