@@ -4,7 +4,7 @@ PROJECT(${PROJECT_NAME})
 
 #set(CMAKE_VERBOSE_MAKEFILE ON)
 
-set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD 17)
 
 set(BUILD_TYPE Release)
 #set(BUILD_TYPE RelWithDebInfo)
@@ -28,19 +28,21 @@ find_package(PCL 1.8 REQUIRED)
 
 find_package(Qt5 REQUIRED COMPONENTS Core Gui Widgets)
 
+include_directories(/usr/local/cuda-11.7/targets/x86_64-linux/include)
+
 set(VTK_DIR "/usr/local/lib/cmake/vtk-9.3") #这一句对VTK成功编译起作用了
 find_package(VTK REQUIRED)
 include_directories(${VTK_INCLUDE_DIRS})
-link_directories(${VTK_INCLUDE_DIRS})
+# link_directories(${VTK_INCLUDE_DIRS})
 # find_package(VTK REQUIRED)
 # include(${VTK_USE_FILE})
-include_directories(/usr/local/include/vtk-9.3)
+# include_directories(/usr/local/include/vtk-9.3)
 
 
 if(VTK_FOUND)
 message("vtk found ")
-message("VTK Include Dirs: ${VTK_INCLUDE_DIRS}")
-message("VTK Include Dirs: ${VTK_USE_FILE}")
+# message("VTK Include Dirs: ${VTK_INCLUDE_DIRS}")
+# message("VTK Include Dirs: ${VTK_USE_FILE}")
 endif()
 
 
