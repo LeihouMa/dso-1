@@ -279,8 +279,8 @@ namespace dso
 		ImageAndExposure *currentMask;
 
 		// 点云可视化
-		pcl::visualization::PCLVisualizer::Ptr pclviewer;
-		void visualizePointCloud(const std::map<float, std::vector<Eigen::Vector4f>> &classifiedVectors);
+		// pcl::visualization::PCLVisualizer::Ptr viewer;
+		// void visualizePointCloud(const std::map<float, std::vector<Eigen::Vector4f>> &classifiedVectors);
 
 		std::vector<float> allResVec;
 
