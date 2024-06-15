@@ -170,10 +170,10 @@ namespace dso
 
 		// 初始化点云显示器
 		//  分配内存并初始化 PCLVisualizer 对象
-		// viewer.reset(new pcl::visualization::PCLVisualizer("3D Viewer"));
-		// viewer->setBackgroundColor(0, 0, 0);
-		// viewer->addCoordinateSystem(1.0);
-		// viewer->initCameraParameters();
+		pclviewer.reset(new pcl::visualization::PCLVisualizer("3D Viewer"));
+		pclviewer->setBackgroundColor(0, 0, 0);
+		pclviewer->addCoordinateSystem(1.0);
+		pclviewer->initCameraParameters();
 	}
 
 	FullSystem::~FullSystem()
@@ -222,6 +222,8 @@ namespace dso
 		delete coarseInitializer;
 		delete pixelSelector;
 		delete ef;
+
+		pclviewer->close();
 	}
 
 	void FullSystem::setOriginalCalib(const VecXf &originalCalib, int originalW, int originalH)
@@ -1577,9 +1579,8 @@ namespace dso
 					classifiedPoints[cluster_id].push_back(point_tmp); // 把分割后的点根据分割后的对象存储
 				}
 			}
-
 		}
-		// visualizePointCloud(classifiedPoints);
+		visualizePointCloud(classifiedPoints);
 
 		return;
 	}
@@ -1622,38 +1623,40 @@ namespace dso
 		}
 		return true;
 	}
-	// void FullSystem::visualizePointCloud(const std::map<float, std::vector<Eigen::Vector4f>> &classifiedVectors)
-	// {
-	// 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
-	// 	viewer->removeAllPointClouds();
-	// 	int color = 0;
-	// 	for (const auto &pair : classifiedVectors)
-	// 	{
-	// 		uint8_t r = (color * 113) % 256;
-	// 		uint8_t g = (color * 179) % 256;
-	// 		uint8_t b = (color * 233) % 256;
-	// 		color++;
+	void FullSystem::visualizePointCloud(const std::map<float, std::vector<Eigen::Vector4f>> &classifiedVectors)
+	{
+		pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+		pclviewer->removeAllPointClouds();
+		int color = 0;
+		for (const auto &pair : classifiedVectors)
+		{
+			uint8_t r = (color * 113) % 256;
+			uint8_t g = (color * 179) % 256;
+			uint8_t b = (color * 233) % 256;
+			color++;
 
-	// 		for (const auto &vec : pair.second)
-	// 		{
-	// 			pcl::PointXYZRGB point;
-	// 			point.x = vec[0];
-	// 			point.y = vec[1];
-	// 			point.z = vec[2];
-	// 			uint32_t rgb = (static_cast<uint32_t>(r) << 16 | static_cast<uint32_t>(g) << 8 | static_cast<uint32_t>(b));
-	// 			point.rgb = *reinterpret_cast<float *>(&rgb);
-	// 			cloud->points.push_back(point);
-	// 		}
-	// 	}
+			for (const auto &vec : pair.second)
+			{
+				pcl::PointXYZRGB point;
+				point.x = vec[0];
+				point.y = vec[1];
+				point.z = vec[2];
+				uint32_t rgb = (static_cast<uint32_t>(r) << 16 | static_cast<uint32_t>(g) << 8 | static_cast<uint32_t>(b));
+				point.rgb = *reinterpret_cast<float *>(&rgb);
+				cloud->points.push_back(point);
+			}
+		}
 
-	// 	// pcl::visualization::PCLVisualizer viewer("4D Vector Visualization");
-	// 	viewer->addPointCloud<pcl::PointXYZRGB>(cloud, "cloud");
-	// 	viewer->setBackgroundColor(0, 0, 0); // 设置背景为黑色
-	// 	viewer->addCoordinateSystem(1.0);
-	// 	viewer->initCameraParameters();
+		// pcl::visualization::PCLVisualizer pclviewer("4D Vector Visualization");
+		// pclviewer->addPointCloud<pcl::PointXYZRGB>(cloud, "cloud");
+		// pclviewer->setBackgroundColor(0, 0, 0); // 设置背景为黑色
+		// pclviewer->addCoordinateSystem(1.0);
+		// pclviewer->initCameraParameters();
 
-	// 	viewer->spinOnce();
+		pclviewer->spinOnce();
+		// pclviewer->spin();
+		// pclviewer->spin();
 
-	// 	return;
-	// }
+		return;
+	}
 }

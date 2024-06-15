@@ -10,22 +10,30 @@
             "request": "launch",
             "program": "${workspaceFolder}/build/bin/dso_dataset",
             //args for tum dataset
-    //         "args": ["files=/home/lee/project/dataset/calib_narrowGamma_scene1/images.zip",
-    //         "calib=/home/lee/project/dataset/calib_narrowGamma_scene1/camera.txt",
-    //         "gamma=/home/lee/project/dataset/calib_narrowGamma_scene1/pcalib.txt",
-    //     "vignette=/home/lee/project/dataset/calib_narrowGamma_scene1/vignette.png",
-    // "preset=0","mode=0"],
-
-    //args for my dataset
-//     "args": ["files=/home/lee/project/sugarcane_sequence/images01",
-//     "calib=//home/lee/project/sugarcane_sequence/camera_2.txt",
-// //     "gamma=/home/lee/project/sugarcane_sequence/pcalib.txt",
-// // "vignette=/home/lee/project/sugarcane_sequence/vignette.png",
-// "preset=0","mode=2"],
-    //args for my dataset
-        "args": ["files=/home/lee/project/sugarcane_sequence/image05",
-    "calib=/home/lee/project/sugarcane_sequence/camera_720p.txt",           
-"preset=0","mode=2"],
+            //         "args": ["files=/home/lee/project/dataset/calib_narrowGamma_scene1/images.zip",
+            //         "calib=/home/lee/project/dataset/calib_narrowGamma_scene1/camera.txt",
+            //         "gamma=/home/lee/project/dataset/calib_narrowGamma_scene1/pcalib.txt",
+            //     "vignette=/home/lee/project/dataset/calib_narrowGamma_scene1/vignette.png",
+            // "preset=0","mode=0"],
+            //args for my dataset
+            //     "args": ["files=/home/lee/project/sugarcane_sequence/images01",
+            //     "calib=//home/lee/project/sugarcane_sequence/camera_2.txt",
+            // //     "gamma=/home/lee/project/sugarcane_sequence/pcalib.txt",
+            // // "vignette=/home/lee/project/sugarcane_sequence/vignette.png",
+            // "preset=0","mode=2"],
+            //args for my dataset
+            // "args": [
+            //     "files=/home/lee/project/sugarcane_sequence/image05",
+            //     "calib=/home/lee/project/sugarcane_sequence/camera_720p.txt",
+            //     "preset=0",
+            //     "mode=2"
+            // ],
+            "args": [
+                "files=/home/lee/project/sugarcane_sequence/Dataset/sequence13_gray",
+                "calib=/home/lee/project/sugarcane_sequence/camera_1080p_02.txt",
+                "preset=0",
+                "mode=2"
+            ],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
@@ -44,7 +52,5 @@
                 }
             ]
         }
-
-
     ]
 }
