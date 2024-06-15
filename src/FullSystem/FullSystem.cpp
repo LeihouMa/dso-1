@@ -170,10 +170,10 @@ namespace dso
 
 		// 初始化点云显示器
 		//  分配内存并初始化 PCLVisualizer 对象
-		// viewer.reset(new pcl::visualization::PCLVisualizer("3D Viewer"));
-		// viewer->setBackgroundColor(0, 0, 0);
-		// viewer->addCoordinateSystem(1.0);
-		// viewer->initCameraParameters();
+		pclviewer.reset(new pcl::visualization::PCLVisualizer("3D Viewer"));
+		pclviewer->setBackgroundColor(0, 0, 0);
+		pclviewer->addCoordinateSystem(1.0);
+		pclviewer->initCameraParameters();
 	}
 
 	FullSystem::~FullSystem()
@@ -1579,7 +1579,7 @@ namespace dso
 			}
 
 		}
-		// visualizePointCloud(classifiedPoints);
+		visualizePointCloud(classifiedPoints);
 
 		return;
 	}
@@ -1625,7 +1625,7 @@ namespace dso
 	// void FullSystem::visualizePointCloud(const std::map<float, std::vector<Eigen::Vector4f>> &classifiedVectors)
 	// {
 	// 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZRGB>);
-	// 	viewer->removeAllPointClouds();
+	// 	pclviewer->removeAllPointClouds();
 	// 	int color = 0;
 	// 	for (const auto &pair : classifiedVectors)
 	// 	{
@@ -1646,13 +1646,13 @@ namespace dso
 	// 		}
 	// 	}
 
-	// 	// pcl::visualization::PCLVisualizer viewer("4D Vector Visualization");
-	// 	viewer->addPointCloud<pcl::PointXYZRGB>(cloud, "cloud");
-	// 	viewer->setBackgroundColor(0, 0, 0); // 设置背景为黑色
-	// 	viewer->addCoordinateSystem(1.0);
-	// 	viewer->initCameraParameters();
+	// 	// pcl::visualization::PCLVisualizer pclviewer("4D Vector Visualization");
+		pclviewer->addPointCloud<pcl::PointXYZRGB>(cloud, "cloud");
+	// 	pclviewer->setBackgroundColor(0, 0, 0); // 设置背景为黑色
+	// 	pclviewer->addCoordinateSystem(1.0);
+	// 	pclviewer->initCameraParameters();
 
-	// 	viewer->spinOnce();
+	// 	pclviewer->spinOnce();
 
 	// 	return;
 	// }
